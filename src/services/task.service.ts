@@ -14,28 +14,27 @@ export class TaskService {
   constructor(@InjectModel(Task.name) private taskSchema: Model<Task>) {}
 
   // создает задачу
-  public async createTask(body: Task): Promise<Task> {
+  public createTask(body: Task): Promise<Task> {
     return this.taskSchema.create(body);
   }
 
   // получение всех задач
-  public async getTasks(): Promise<Task[]> {
-    return this.taskSchema.find().exec();
+  public getTasks(): Promise<Task[]> {
+    return this.taskSchema.find();
   }
 
   // редактирование задачи
-  public async editTask(id: string, body: Task): Promise<Task> {
+  public editTask(id: string, body: Task): Promise<Task> {
     return this.taskSchema.findOneAndUpdate(
       { _id: id },
       { $set: body },
       { returnDocument: 'after' }
-    )
-      .exec();
+    );
   }
 
   // удаление задачи
-  public async deleteTask(id: string): Promise<Task> {
-    return this.taskSchema.findByIdAndDelete({ _id: id }).exec();
+  public deleteTask(id: string): Promise<Task> {
+    return this.taskSchema.findByIdAndDelete({ _id: id });
   }
 
 }
